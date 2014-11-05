@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import sort.BubbleSort;
 import sort.InsertionSort;
+import sort.QuickSort;
 import sort.SelectionSort;
 
 
@@ -21,8 +22,12 @@ public class MainClass {
 		//data = (int[]) selection.sort((T) data, true);
 		//System.out.println(Arrays.toString(data));
 		
-		InsertionSort<T> insertion = new InsertionSort<>();
-		data = (int[]) insertion.sort((T) data, false);
+		//InsertionSort<T> insertion = new InsertionSort<>();
+		//data = (int[]) insertion.sort((T) data, false);
+		//System.out.println(Arrays.toString(data));
+		
+		QuickSort<T> quick = new QuickSort<>();
+		data = (int[]) quick.sort((T) data, false);
 		System.out.println(Arrays.toString(data));
 		
 	}

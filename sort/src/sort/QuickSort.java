@@ -1,65 +1,59 @@
 package sort;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuickSort<T> implements SortIF<T>{
 
 	
 	@Override
 	public T sort(T data, boolean isAscending) {
-		// TODO Auto-generated method stub
-		return null;
+		int[] dataArr = (int[]) data;
+		
+		//0,1,2,3    4/2	
+		int middleIndex = dataArr.length/2;	//짝수개일때는 중간에서 오른쪽 인덱스를 선택 , 2개일 경우엔 오른쪽 값  
+		int lastIndex = dataArr.length-1;
+		
+		//배열의 개수가 2개이면 그냥 swap사용
+		
+		//배열의 개수가 3개 이상인 경우
+		//가장 먼저 맨왼쪽 값, 중앙값, 맨오른쪽 값을 정렬한다. 
+		int[] subArr = new int[3];
+		subArr[0] = dataArr[0];
+		subArr[1] = dataArr[middleIndex];
+		subArr[2] = dataArr[lastIndex];
+		subArr = (int[]) new InsertionSort<>().sort(subArr, isAscending);		
+		dataArr[0] = subArr[0];
+		dataArr[middleIndex] = dataArr[1];
+		dataArr[lastIndex] = dataArr[2];
+		
+		
+		
+		return (T) dataArr;
 	}
 	
 	
-	//{3,2,5,4,1};
-	/**
-	 * start 가장 왼쪽값
-	 * end 가장 오른쪽 값
-	 * @param arr
-	 * @param start
-	 * @param end
-	 * @return
-	 */
-	public void sort(int[] arr, int start, int end){
-		System.out.println(Arrays.toString(arr));
-		
-		int pivot = arr[0];
-		int left = 	start+1;//인덱스 값
-		int right = end;//인덱스 값
-		
-		if(start < end){ //배열 개수가 3개 이상일 경우
-			
-			while(left<right){
-				System.out.println(left+" "+right);
-				while(arr[left]<pivot){	//값이 피봇보다 크면 중지 
-					left++;
-				}
-				while(arr[right]>pivot){//값이 피봇보다 작으면 중지
-					right--;
-				}
-				
-				
-				int tmp = arr[left];
-				arr[left] = arr[right];
-				arr[right] = tmp;
-				
-			}
-			
-			if(left >= right){ //pivot값(arr[0]과 arr[right]를 바꿔준다.)
-				int tmp = arr[0];
-				arr[0] = arr[right];
-				arr[right] = tmp;
-				pivot = arr[0];
-			}
-			
-			int[] leftArr = Arrays.copyOfRange(arr, 0, right-1);
-			sort(leftArr, 0, leftArr.length-1);
-			int[] rightArr = Arrays.copyOfRange(arr, left, arr.length-1);
-			sort(rightArr, 0, leftArr.length-1);
-		}
-		
+	private int[] swap(int[] dataArr, int prevIndex, int postIndex){
+		int tmp = dataArr[prevIndex];
+		dataArr[prevIndex] = dataArr[postIndex];
+		dataArr[postIndex] = tmp;
+		return dataArr;
 	}
+	
+	//배열과, pivot값이 들어있는 인덱스번호를 반환한다. 
+	private Map<String,T> quickSort(int[] dataArr){
+		Map<String,T> dataMap = new HashMap<>();
+		
+		
+		
+		dataMap.put("arr", arg1);
+		return dataMap;
+	}
+	
+	
+	
+	
 
 	
 }
