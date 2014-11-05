@@ -11,24 +11,7 @@ public class QuickSort<T> implements SortIF<T>{
 	public T sort(T data, boolean isAscending) {
 		int[] dataArr = (int[]) data;
 		
-		//0,1,2,3    4/2	
-		int middleIndex = dataArr.length/2;	//짝수개일때는 중간에서 오른쪽 인덱스를 선택 , 2개일 경우엔 오른쪽 값  
-		int lastIndex = dataArr.length-1;
-		
-		//배열의 개수가 2개이면 그냥 swap사용
-		
-		//배열의 개수가 3개 이상인 경우
-		//가장 먼저 맨왼쪽 값, 중앙값, 맨오른쪽 값을 정렬한다. 
-		int[] subArr = new int[3];
-		subArr[0] = dataArr[0];
-		subArr[1] = dataArr[middleIndex];
-		subArr[2] = dataArr[lastIndex];
-		subArr = (int[]) new InsertionSort<>().sort(subArr, isAscending);		
-		dataArr[0] = subArr[0];
-		dataArr[middleIndex] = dataArr[1];
-		dataArr[lastIndex] = dataArr[2];
-		
-		
+		dataArr = quickSort(dataArr, 0, dataArr.length-1);
 		
 		return (T) dataArr;
 	}
@@ -42,16 +25,35 @@ public class QuickSort<T> implements SortIF<T>{
 	}
 	
 	//배열과, pivot값이 들어있는 인덱스번호를 반환한다. 
-	private Map<String,T> quickSort(int[] dataArr){
-		Map<String,T> dataMap = new HashMap<>();
+	private int[] quickSort(int[] dataArr, int leftIndex, int rightIndex){
+
+		if(leftIndex<rightIndex){
+			int i = leftIndex;
+			int j = rightIndex;
+			int pivot = dataArr[leftIndex];	//pivot을 맨 오른쪽 값으로 세팅.
+			
+			while(i<j){
+				//i번째와 j번째 조건을 모두 만족하면, swap 
+				while(dataArr[j]>pivot)	 j--;
+				while( (i<j) && dataArr[i]<=pivot ) i++;	//i가 j보다 작을 때에만 i++하게 함으로써 마지막에 i==j가 되도록 함.
+				//{2,5,3}
+				if(i<j) dataArr = swap(dataArr, i, j);
+			}
+			swap(dataArr, leftIndex, i); //이 때 i==j 인 상황.i번째 인덱스와 0번째 pivot값을 바꿔줌.
+			
+			quickSort(dataArr, leftIndex, i-1);
+			quickSort(dataArr, i+1, rightIndex);
+		}
 		
-		
-		
-		dataMap.put("arr", arg1);
-		return dataMap;
+		return dataArr;
 	}
 	
 	
+	//pivot을 효율적으로 결정하는 건 좀 더 고민해 보자.  
+	//pivot이 배열의 가장 왼쪽값보다는 크도록, 가장 오른쪽 값보다는 작은 수가 될 수 있도록 셋팅
+	//if(dataArr[i]>dataArr[j]) 	swap(dataArr, i, j);  //가장 왼쪽값이 오른쪽 값보다 작도록 함
+	//if(dataArr[i]>pivot) 		swap(dataArr, i, j-1);
+	//if(dataArr[j]<pivot)		swap(dataArr, j-1, j);
 	
 	
 
