@@ -6,12 +6,13 @@ import sort.BubbleSort;
 import sort.InsertionSort;
 import sort.QuickSort;
 import sort.SelectionSort;
+import sort20150117.SortExercise;
 
 
 public class MainClass {
 
 	//public static int[] data = {4,6,8,2,1,5,3,9,10,9,10,9,11,13,14,12,22,20,28,26,21};
-	public static int[] data = {4,6,8,2,1,5,3};
+	public static int[] data = {4,6,8,2,1,5,3,7,10};
 	public static <T> void main(String[] args) {
 		
 		//BubbleSort bubble = new BubbleSort<>();
@@ -26,10 +27,13 @@ public class MainClass {
 		//data = (int[]) insertion.sort((T) data, false);
 		//System.out.println(Arrays.toString(data));
 		
-		QuickSort<T> quick = new QuickSort<>();
+		/*QuickSort<T> quick = new QuickSort<>();
 		data = (int[]) quick.sort((T) data, false);
-		System.out.println(Arrays.toString(data));
+		System.out.println(Arrays.toString(data));*/
 		
+		SortExercise ex = new SortExercise();
+		data = ex.bubbleSort(data);
+		System.out.println(Arrays.toString(data));
 	}
 
 }
